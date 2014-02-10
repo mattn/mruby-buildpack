@@ -18,6 +18,8 @@ echo '-----> building libuv'
 #cd libuv-v$LIBUV_VERSION
 git clone https://github.com/joyent/libuv
 cd libuv
+./autogen.sh
+./configure
 make libuv.a | indent
 cd $SCRIPT_PATH
 echo '-----> libuv build done'
