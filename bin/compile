@@ -16,7 +16,7 @@ echo '-----> building libuv'
 git clone --depth 1 https://github.com/joyent/libuv
 cd libuv
 ./autogen.sh
-./configure --enable-static=yes
+./configure --enable-static=yes --enable-shard=no
 make | indent
 cd $SCRIPT_PATH
 echo '-----> libuv build done'
