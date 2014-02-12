@@ -10,9 +10,8 @@ indent() {
 SCRIPT_PATH=$1
 cd $SCRIPT_PATH
 
-#export LIBUV_VERSION=0.11.9
-
 echo '-----> building libuv'
+rm -rf libuv
 git clone --depth 1 https://github.com/joyent/libuv | indent
 cd libuv
 ./autogen.sh | indent
@@ -28,6 +27,7 @@ else
 fi
 
 echo '-----> cloning mruby'
+rm -rf mruby
 git clone --depth 1 "https://github.com/mruby/mruby.git" | indent
 echo '-----> mruby clone done'
 
