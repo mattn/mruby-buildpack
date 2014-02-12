@@ -13,10 +13,10 @@ cd $SCRIPT_PATH
 #export LIBUV_VERSION=0.11.9
 
 echo '-----> building libuv'
-git clone --depth 1 https://github.com/joyent/libuv
+git clone --depth 1 https://github.com/joyent/libuv | indent
 cd libuv
-./autogen.sh
-./configure --disable-shared
+./autogen.sh | indent
+./configure --disable-shared | indent
 make | indent
 cd $SCRIPT_PATH
 echo '-----> libuv build done'
