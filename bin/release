@@ -1,8 +1,4 @@
 #1/usr/bin/env bash
 # bin/release BUILD_DIR
 
-cat <<EOF
----
-default_process_types:
-  web: mruby server.rb
-EOF
+echo "--- {}"
