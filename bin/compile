@@ -13,13 +13,10 @@ cd $SCRIPT_PATH
 #export LIBUV_VERSION=0.11.9
 
 echo '-----> building libuv'
-#curl http://libuv.org/dist/v$LIBUV_VERSION/libuv-v$LIBUV_VERSION.tar.gz > libuv-v$LIBUV_VERSION.tar.gz
-#tar xf libuv-v$LIBUV_VERSION.tar.gz
-#cd libuv-v$LIBUV_VERSION
-git clone https://github.com/joyent/libuv
+git clone --depth 1 https://github.com/joyent/libuv
 cd libuv
 ./autogen.sh
-./configure
+./configure --diable-shared=yes
 make | indent
 cd $SCRIPT_PATH
 echo '-----> libuv build done'
@@ -35,8 +32,8 @@ git clone --depth 1 "https://github.com/mruby/mruby.git" | indent
 echo '-----> mruby clone done'
 
 echo '-----> building mruby'
-LDFLAGS="-L$SCRIPT_PATH/libuv-v$LIBUV_VERSION" \
-    CFLAGS="-I$SCRIPT_PATH/libuv-v$LIBUV_VERSION/include" \
+LDFLAGS="-L$SCRIPT_PATH/libuv/.libs" \
+    CFLAGS="-I$SCRIPT_PATH/libuv/include" \
     MRUBY_CONFIG="$SCRIPT_PATH/build_config.rb" \
     make -C "$SCRIPT_PATH/mruby" all | indent
 chmod +x $SCRIPT_PATH/mruby/bin/mruby
