@@ -10,16 +10,6 @@ indent() {
 SCRIPT_PATH=$1
 cd $SCRIPT_PATH
 
-echo '-----> building libuv'
-rm -rf libuv
-git clone --depth 1 https://github.com/joyent/libuv | indent
-cd libuv
-./autogen.sh | indent
-./configure --disable-shared | indent
-make | indent
-cd $SCRIPT_PATH
-echo '-----> libuv build done'
-
 if [ -f "$SCRIPT_PATH/build_config.rb" ] ; then
     echo '-----> build_config.rb found'
 else
@@ -32,10 +22,7 @@ git clone --depth 1 "https://github.com/mruby/mruby.git" | indent
 echo '-----> mruby clone done'
 
 echo '-----> building mruby'
-LDFLAGS="-L$SCRIPT_PATH/libuv/.libs" \
-    CFLAGS="-I$SCRIPT_PATH/libuv/include" \
-    MRUBY_CONFIG="$SCRIPT_PATH/build_config.rb" \
-    make -C "$SCRIPT_PATH/mruby" all | indent
+MRUBY_CONFIG="$SCRIPT_PATH/build_config.rb" make -C "$SCRIPT_PATH/mruby" all | indent
 chmod +x $SCRIPT_PATH/mruby/bin/mruby
 echo '-----> mruby build done'
 
